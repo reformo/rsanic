@@ -10,7 +10,7 @@ Installing rsanic
 
     git clone https://github.com/reformo/rsanic.git
     cd rsanic
-    python3 setup.py nosetests
+    python3 setup.py
 
 Credits
 =======
