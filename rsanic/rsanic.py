@@ -35,7 +35,6 @@ class Rsanic:
         self.app.run(host=self.config['host'], port=self.config['port'], debug=self.config['debug'])
 
     async def handler(self, request, **args):
-
         sys.path.append(self.config['app_dir'] + '/controllers')
         url = request.url
         route_data = self.app.router.get(request)

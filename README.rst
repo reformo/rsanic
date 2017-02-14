@@ -8,6 +8,12 @@ Installing rsanic
 
 .. code-block:: bash
 
+    pip3 install rsanic
+
+or
+
+.. code-block:: bash
+
     git clone https://github.com/reformo/rsanic.git
     cd rsanic
     python3 setup.py
