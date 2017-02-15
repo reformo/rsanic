@@ -5,6 +5,7 @@ import sys
 from sanic import Sanic
 from sanic.response import json, html, text
 from jinja2 import Environment, FileSystemLoader
+from jinja2.bccache import FileSystemBytecodeCache
 import importlib
 
 
@@ -12,8 +13,12 @@ class Rsanic:
 
     routes = {}
 
-    def __init__(self, config, routes, name=None, error_handler=None):
+    container = None
 
+    def __init__(self, container, name=None, error_handler=None):
+        self.container = container
+        self.config = container.config()
+        routes = container.routes()
         app = Sanic(name, error_handler=error_handler)
         for route in routes:
             url = route[1]
@@ -29,7 +34,6 @@ class Rsanic:
                 methods = {route[0]}
             app.add_route(self.handler, route[1], methods=methods)
         self.app = app
-        self.config = config
 
     def run(self):
         self.app.run(host=self.config['host'], port=self.config['port'], debug=self.config['debug'])
@@ -43,27 +47,30 @@ class Rsanic:
         try:
             handler = self.routes[url]
         except KeyError:
-            handler = {'controller': 'www.home.NotFound', 'return_type': 'html'}
+            handler = {'controller': self.config.not_found_method, 'return_type': self.config.default_return_type}
         try:
             return_type = handler['return_type']
         except KeyError:
-            return_type = 'html'
+            return_type = self.config.default_return_type
         module_name, class_name = handler['controller'].rsplit(".", 1)
         module_path = handler['controller']
         controller_obj = getattr(importlib.import_module(module_path), class_name.title())
-        controller = controller_obj()
+        controller = controller_obj(container=self.container)
         controller.application_global()
         controller.controller_global()
         controller_response = controller.invoke(args)
         if return_type == 'html':
-            env = Environment()
-            loader = FileSystemLoader(self.config['app_dir'] + '/templates')
-            env.loader = loader
-            env.globals['config'] = self.config
-            template_path = handler['controller'].replace('.', '/') + '.html'
-            template = env.get_template(template_path)
-            return html(template.render(response=controller_response))
+            return html(self.html_response(handler, controller_response))
         elif return_type == 'json':
             return json(controller_response)
         else:
             return text(controller_response)
+
+    def html_response(self, handler, controller_response):
+        bcc = FileSystemBytecodeCache()
+        loader = FileSystemLoader(self.config['app_dir'] + '/templates')
+        jinja = Environment(bytecode_cache=bcc, loader=loader)
+        jinja.globals['config'] = self.config
+        template_path = handler['controller'].replace('.', '/') + '.html'
+        template = jinja.get_template(template_path)
+        return template.render(response=controller_response)

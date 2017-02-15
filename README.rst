@@ -18,6 +18,14 @@ or
     cd rsanic
     python3 setup.py
 
+after install try example
+
+.. code-block:: bash
+
+    git clone https://github.com/reformo/rsanic.git
+    cd rsanic/example
+    python3 server.py
+
 Credits
 =======
 
