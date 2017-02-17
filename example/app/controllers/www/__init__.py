@@ -18,4 +18,4 @@ class Application:
         self.redis_client = self.container.redis()
 
     def close(self):
-        self.redis_client.close()
+        self.redis_client.connection_pool.disconnect()
