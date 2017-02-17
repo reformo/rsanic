@@ -1,0 +1,7 @@
+apps:
+  - script   : server.py
+    name: rsanic
+    exec_interpreter: python3
+    instances: 1
+    exec_mode: fork
+    log_date_format: "YYYY-MM-DD HH:mm:ss Z"
