@@ -16,3 +16,6 @@ class Application:
     def application_global(self):
         self.config = self.container.config()
         self.redis_client = self.container.redis()
+
+    def close(self):
+        self.redis_client.connection_pool.disconnect()
