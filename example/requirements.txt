@@ -1,3 +1,3 @@
-rsanic==0.1.1
+rsanic==0.2.1
 python-dotenv
-asyncio_redis
+redis==2.10.5

@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+New in version 0.2.1
+--------------------
+* Requirements updated
+
 New in version 0.2.0
 --------------------
 * Dependency Injection Container introduced to be used in Rsanic and Applications
