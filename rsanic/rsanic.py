@@ -52,9 +52,9 @@ class Rsanic:
             return_type = handler['return_type']
         except KeyError:
             return_type = self.config.default_return_type
-        module_name, class_name = handler['controller'].rsplit(".", 1)
+        handler_parts = handler['controller'].rsplit(".", 1)
         module_path = handler['controller']
-        controller_obj = getattr(importlib.import_module(module_path), class_name.title())
+        controller_obj = getattr(importlib.import_module(module_path), handler_parts[1].title())
         controller = controller_obj(container=self.container, request=request)
         controller.application_global()
         controller.controller_global()
@@ -70,7 +70,7 @@ class Rsanic:
     def html_response(self, handler, controller_response):
         bcc = FileSystemBytecodeCache()
         loader = FileSystemLoader(self.config['app_dir'] + '/templates')
-        jinja = Environment(bytecode_cache=bcc, loader=loader)
+        jinja = Environment(bytecode_cache=bcc, loader=loader, autoescape=True)
         jinja.globals['config'] = self.config
         template_path = handler['controller'].replace('.', '/') + '.html'
         template = jinja.get_template(template_path)
