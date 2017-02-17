@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from .. import Application
 
-import app.controllers.www as www
 
-
-class Home(www.Application):
+class Home(Application):
 
     def controller_global(self):
         # print('controller_global')

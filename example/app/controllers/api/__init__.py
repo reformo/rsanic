@@ -5,9 +5,14 @@
 class Application:
 
     container = None
+    config = None
+    request = None
+    redis_client = None
 
-    def __init__(self, container):
+    def __init__(self, container=container, request=request):
         self.container = container
+        self.request = request
 
     def application_global(self):
-        return True
+        self.config = self.container.config()
+        self.redis_client = self.container.redis()

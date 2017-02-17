@@ -7,7 +7,7 @@ load_dotenv(find_dotenv())
 config = {
     'app_dir': os.path.dirname(os.path.abspath(__file__)) + '/app',
     'host': os.environ.get('SERVICE_HOST'),
-    'port': os.environ.get('SERVICE_PORT'),
+    'port': int(os.environ.get('SERVICE_PORT')),
     'base': os.environ.get('BASE_HREF'),
     'static': 'public',
     'debug': False,
@@ -19,5 +19,5 @@ config = {
     }
 }
 
-if os.environ.get('DEBUG')== 'On':
+if os.environ.get('DEBUG') == 'On':
     config['debug'] = True

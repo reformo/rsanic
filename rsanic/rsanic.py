@@ -55,10 +55,11 @@ class Rsanic:
         module_name, class_name = handler['controller'].rsplit(".", 1)
         module_path = handler['controller']
         controller_obj = getattr(importlib.import_module(module_path), class_name.title())
-        controller = controller_obj(container=self.container)
+        controller = controller_obj(container=self.container, request=request)
         controller.application_global()
         controller.controller_global()
         controller_response = controller.invoke(args)
+        controller.close()
         if return_type == 'html':
             return html(self.html_response(handler, controller_response))
         elif return_type == 'json':
