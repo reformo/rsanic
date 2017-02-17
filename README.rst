@@ -10,21 +10,17 @@ Installing rsanic
 
     pip3 install rsanic
 
-or
-
-.. code-block:: bash
-
-    git clone https://github.com/reformo/rsanic.git
-    cd rsanic
-    python3 setup.py
-
-after install try example
+Example app:
+* Local Redis service must be installed and running at port 6397
+* Shows how to use html or json responses
 
 .. code-block:: bash
 
     git clone https://github.com/reformo/rsanic.git
     cd rsanic/example
     python3 server.py
+
+Then use any web browser to open address: http://127.0.0.1:8000/
 
 Credits
 =======
