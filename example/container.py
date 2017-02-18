@@ -14,4 +14,3 @@ class Container(containers.DeclarativeContainer):
     routes = providers.Configuration('routes')
 
     redis = providers.Singleton(StrictRedis, host=config.redis.host, port=config.redis.port, db=0)
-

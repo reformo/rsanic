@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+New in version 0.2.2
+--------------------
+* Autoescape option set True for Jinja to prevent XSS attacks.
+* Example pm2 config added
+
 New in version 0.2.1
 --------------------
 * Requirements updated

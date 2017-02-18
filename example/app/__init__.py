@@ -2,3 +2,4 @@
 # -*- coding: utf-8 -*-
 
 from .controllers import www
+from .controllers import api

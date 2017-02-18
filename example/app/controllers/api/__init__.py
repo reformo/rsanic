@@ -9,7 +9,7 @@ class Application:
     request = None
     redis_client = None
 
-    def __init__(self, container=container, request=request):
+    def __init__(self, container=None, request=None):
         self.container = container
         self.request = request
 
