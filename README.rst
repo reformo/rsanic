@@ -22,7 +22,7 @@ Example app:
     cd rsanic/example
     python3 server.py
 
-or if you have pm2 <http://pm2.keymetrics.io> installed
+or if you have pm2 <http://pm2.keymetrics.io>`_ installed
 
 .. code-block:: bash
 
