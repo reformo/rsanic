@@ -5,6 +5,6 @@ from .. import Application
 
 class Home(Application):
 
-    def controller_global(self):
+    async def controller_global(self):
         # print('controller_global')
-        return True
+        pass

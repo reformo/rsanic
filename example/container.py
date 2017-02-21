@@ -3,7 +3,7 @@
 
 import dependency_injector.containers as containers
 import dependency_injector.providers as providers
-from redis import StrictRedis
+import asyncio
 
 
 class Container(containers.DeclarativeContainer):
@@ -13,4 +13,5 @@ class Container(containers.DeclarativeContainer):
 
     routes = providers.Configuration('routes')
 
-    redis = providers.Singleton(StrictRedis, host=config.redis.host, port=config.redis.port, db=0)
+    loop = providers.Singleton(asyncio.get_event_loop)
+

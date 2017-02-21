@@ -30,7 +30,13 @@ or if you have `pm2 <http://pm2.keymetrics.io>`_ installed
     cd rsanic/example
     pm2 start process.yml
 
-Then use any web browser to open address: http://127.0.0.1:8000/
+Then use any web browser to open address: http://127.0.0.1:8000/ or  http://127.0.0.1:8000/api or http://127.0.0.1:8000/public/data.json for static file access.
+
+Notes
+=====
+
+* rsanic will not follow the `semantic versioning scheme <http://semver.org/>`_ until the version 1.0.0. So there may be BC breaks.
+
 
 Credits
 =======

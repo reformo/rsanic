@@ -6,13 +6,15 @@ from . import Home
 
 class Main(Home):
 
-    def invoke(self, args):
-        r = self.redis_client
-        c = r.get('c')
+    async def invoke(self, args):
+
+        r = await self.get_redis()
+        c = await r.execute('get', 'c')
         if c is not None:
-            r.incr('c')
+            await r.execute('incr','c')
             count = int(c)+1
         else:
-            r.set('c', 0)
+            await r.execute('set','c', 0)
             count = 0
         return {'status': 200, 'data': {'host': self.config['redis']['host'], 'c': count}}
+

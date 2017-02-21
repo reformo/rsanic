@@ -5,4 +5,4 @@ apps:
     instances: 1
     exec_mode: fork
     watch: true
-    log_date_format: "YYYY-MM-DD HH:mm:ss Z"
+    log_date_format: "YYYY-MM-DD HH:mm:ss:uu Z"
