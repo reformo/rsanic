@@ -2,25 +2,25 @@
 # -*- coding: utf-8 -*-
 
 import aioredis
+import asyncio
 
 
 class Application:
 
-    container = None
     config = None
     request = None
     redis_client = None
 
-    def __init__(self, container=None, request=None):
-        self.container = container
+    def __init__(self, config=None, request=None):
+        self.config = config
         self.request = request
 
     async def application_global(self):
-        self.config = self.container.config()
+        pass
 
     async def get_redis(self):
         if not isinstance(self.redis_client, aioredis.RedisConnection):
-            self.redis_client = await aioredis.create_connection(
+            self.redis_client = await aioredis.create_redis(
                 (self.config['redis']['host'], self.config['redis']['port']),
                 encoding='utf-8'
             )

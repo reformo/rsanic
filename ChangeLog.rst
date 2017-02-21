@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+
+New in version 0.3.1
+--------------------
+* Container removed
+
+
 New in version 0.3.0
 --------------------
 * HTML theming support added

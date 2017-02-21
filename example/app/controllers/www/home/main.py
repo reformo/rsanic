@@ -9,12 +9,12 @@ class Main(Home):
     async def invoke(self, args):
 
         r = await self.get_redis()
-        c = await r.execute('get', 'c')
+        c = await r.get('c')
         if c is not None:
-            await r.execute('incr','c')
+            await r.incr('c')
             count = int(c)+1
         else:
-            await r.execute('set','c', 0)
+            await r.set('c', 0)
             count = 0
         return {'status': 200, 'app_template': 'main', 'data': {'host': self.config['redis']['host'], 'c': count}}
 

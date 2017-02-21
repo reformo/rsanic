@@ -17,12 +17,10 @@ import asyncio
 class Rsanic:
 
     routes = {}
-    container = None
     app = None
-    loop = None
 
-    def __init__(self, container, name=None, error_handler=None):
-        self.loop = container.loop() or asyncio.get_event_loop()
+    def __init__(self, config=None, routes=None, name=None, error_handler=None):
+        self.config = config
         if not logging.root.handlers and log.level == logging.NOTSET:
             formatter = logging.Formatter(
                 "%(levelname)s: %(message)s")
@@ -33,11 +31,9 @@ class Rsanic:
         log.info('\n\t\t-------------------------------------------'
                  '\n\t\t              RSANIC loading               '
                  '\n\t\t-------------------------------------------')
-        self.container = container
-        self.config = container.config()
-        routes = container.routes()
+
         log.info('Defining sanic app: %s\t', name)
-        app = Sanic(name, error_handler=error_handler)
+        app = Sanic(name=name, error_handler=error_handler)
         if 'public' in self.config:
             log.info('Adding static folder %s at /public\t', self.config['public'])
             app.static('/public', self.config['public'])
@@ -56,16 +52,14 @@ class Rsanic:
             else:
                 methods = {route[0]}
             log.info('Methods: %s, URI: %s, Controller: %s, Return Type: %s', methods, route[1], route[2], return_type)
-            app.add_route(self.handler, route[1], methods=methods)
+            app.add_route(self.dispatcher, route[1], methods=methods)
         self.app = app
         log.info('RSENIC loaded')
 
     def run(self):
-        self.app.run(host=self.config['host'], port=self.config['port'], debug=self.config['debug'], loop=self.loop)
-        self.loop.close()
+        self.app.run(host=self.config['host'], port=self.config['port'], debug=self.config['debug'])
 
-    async def handler(self, request, **args):
-
+    async def dispatcher(self, request, **args):
         sys.path.append(self.config['app_dir'] + '/controllers')
         url = request.url
         if 'log_access' in self.config and self.config['log_access']:
@@ -85,7 +79,7 @@ class Rsanic:
         handler_parts = handler['controller'].rsplit(".", 1)
         module_path = handler['controller']
         controller_obj = getattr(importlib.import_module(module_path), handler_parts[1].title())
-        controller = controller_obj(container=self.container, request=request)
+        controller = controller_obj(config=self.config, request=request)
         await controller.application_global()
         await controller.controller_global()
         controller_response = await controller.invoke(args)

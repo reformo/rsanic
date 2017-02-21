@@ -25,8 +25,7 @@ setup(
     install_requires=[
         'sanic==0.3.1',
         'sanic_session==0.1.0',
-        'jinja2==2.9.5',
-        'dependency-injector==3.3.1'
+        'jinja2==2.9.5'
     ],
     description='Micro framework built on top of sanic.py written in Python 3.',
     long_description=readme + '\n' + changelog,
