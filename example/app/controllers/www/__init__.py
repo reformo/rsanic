@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import aioredis
-import asyncio
 
 
 class Application:
@@ -19,7 +18,7 @@ class Application:
         pass
 
     async def get_redis(self):
-        if not isinstance(self.redis_client, aioredis.RedisConnection):
+        if self.redis_client is None:
             self.redis_client = await aioredis.create_redis(
                 (self.config['redis']['host'], self.config['redis']['port']),
                 encoding='utf-8'

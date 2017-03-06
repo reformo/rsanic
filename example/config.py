@@ -18,6 +18,12 @@ config = {
     'redis': {
         'host': os.environ.get('REDIS_HOST'),
         'port': int(os.environ.get('REDIS_PORT'))
+    },
+    'db': {
+        'host': os.environ.get('DB_HOST'),
+        'username': os.environ.get('DB_USERNAME'),
+        'password': os.environ.get('DB_PASSWORD'),
+        'database': os.environ.get('DB_DATABASE'),
     }
 }
 

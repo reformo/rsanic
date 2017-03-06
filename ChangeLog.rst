@@ -2,6 +2,12 @@ Change Log
 ==========
 
 
+New in version 0.4.0
+--------------------
+* Workers added as an option
+* Markdown support added
+
+
 New in version 0.3.1
 --------------------
 * Container removed

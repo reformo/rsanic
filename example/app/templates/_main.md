@@ -8,6 +8,4 @@
 
 {% autoescape false %}
 {{app_content}}
-{% endautoescape %}
-</body>
-</html>
+{% endautoescape %}</body></html>
