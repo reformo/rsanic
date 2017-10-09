@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 from dotenv import load_dotenv, find_dotenv
-
+from sanic.config import LOGGING
 load_dotenv(find_dotenv())
 config = {
     'app_dir': os.path.dirname(os.path.abspath(__file__)) + '/app',
@@ -12,9 +12,10 @@ config = {
     'base': os.environ.get('BASE_HREF'),
     'static': 'public',
     'debug': False,
+    'logging_config': None,
     'log_access': False,
     'default_return_type': 'html',
-    'not_found_method': 'www.base.not_found',
+    'not_found_method': 'www.home.notfound',
     'redis': {
         'host': os.environ.get('REDIS_HOST'),
         'port': int(os.environ.get('REDIS_PORT'))
@@ -29,5 +30,6 @@ config = {
 
 if os.environ.get('DEBUG') == 'On':
     config['debug'] = True
+    config['logging_config'] = LOGGING
 if os.environ.get('LOG_ACCESS') == 'On':
     config['log_access'] = True

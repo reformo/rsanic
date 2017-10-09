@@ -3,7 +3,7 @@
 
 from .rsanic import Rsanic
 
-__version__ = '0.4.0'
+__version__ = '0.4.4'
 
 __all__ = ['Rsanic']
 

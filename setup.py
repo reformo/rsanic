@@ -23,8 +23,8 @@ setup(
     author_email='mehmet@mkorkmaz.com',
     packages=find_packages(),
     install_requires=[
-        'sanic==0.3.1',
-        'sanic_session==0.1.0',
+        'sanic==0.5.4',
+        'sanic_session==0.1.2',
         'jinja2==2.9.5'
     ],
     description='Micro framework built on top of sanic.py written in Python 3.',
